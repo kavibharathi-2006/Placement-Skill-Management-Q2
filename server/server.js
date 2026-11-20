@@ -20,6 +20,18 @@ app.get("/api/students", (req, res) => {
   res.json(students);
 });
 
+app.post("/api/students", (req, res) => {
+  const newStudent = {
+    id: students.length + 1,
+    name: req.body.name,
+    department: req.body.department,
+    skills: req.body.skills
+  };
+
+  students.push(newStudent);
+  res.status(201).json(newStudent);
+});
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
