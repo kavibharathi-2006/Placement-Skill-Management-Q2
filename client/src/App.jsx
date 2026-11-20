@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
+const API_URL = "https://placement-skill-q2-backend.onrender.com";
+
 function App() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");
@@ -10,7 +12,7 @@ function App() {
   const [skills, setSkills] = useState("");
 
   useEffect(() => {
-    axios.get("/api/students")
+    axios.get(`${API_URL}/api/students`)
       .then((response) => {
         setStudents(response.data);
       })
@@ -28,7 +30,7 @@ function App() {
       skills: skills.split(",").map((skill) => skill.trim())
     };
 
-    axios.post("/api/students", newStudent)
+    axios.post(`${API_URL}/api/students`, newStudent)
       .then((response) => {
         setStudents([...students, response.data]);
         setName("");
