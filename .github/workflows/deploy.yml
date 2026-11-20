@@ -1,5 +1,5 @@
 
-name: Q2 Project CI
+name: Placement Skill Management CI
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  frontend-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,20 +19,32 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install Frontend Dependencies
         working-directory: client
         run: npm install
 
-      - name: Build React Frontend
+      - name: Build Frontend
         working-directory: client
         run: npm run build
+
+  backend-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
       - name: Install Backend Dependencies
         working-directory: server
         run: npm install
 
-      - name: Check Backend Code
+      - name: Check Backend
         working-directory: server
         run: node --check server.js
